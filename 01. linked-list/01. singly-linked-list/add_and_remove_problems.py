@@ -4,13 +4,17 @@ class AddRemoveProblems(SinglyLinkedList):
     def __init__(self):
         super().__init__()
 
-    def validator(self, pos):
+    def validator(self, pos, type="add"):
         if pos < 0:
             print(f"Pos cant be less than 0, but {pos} given")
             return False
         if pos > self.get_length():
-            print(f"Pos cant be greater than the list length: {self.get_length()}, "
-                             f"but {pos} given")
+            if type == "add":
+                print(f"Add pos cant be greater than the list length: {self.get_length()}, "
+                                 f"but {pos} given")
+            else:
+                print(f"Delete pos cant be greater than : list length - 1: {self.get_length() - 1}, "
+                      f"but {pos-1} given")
             return False
         return True
 
@@ -62,7 +66,7 @@ class AddRemoveProblems(SinglyLinkedList):
             print(f"{data} not present in the linked list")
 
     def delete_nth_node(self, pos):
-        if not self.validator(pos):
+        if not self.validator(pos+1, type="del"):
             return
 
         ptr = self.head
@@ -110,7 +114,7 @@ class AddRemoveProblems(SinglyLinkedList):
             ptr2.next = node
 
     def delete_node_at_nth_pos_from_last_v1(self, pos):
-        if not self.validator(pos):
+        if not self.validator(pos + 1, type="del"):
             return
         # The easiest way is to find the position from the start and
         # convert the problem to nth node from the start
@@ -119,7 +123,7 @@ class AddRemoveProblems(SinglyLinkedList):
         self.delete_nth_node(pos)
 
     def delete_node_at_nth_pos_from_last_v2(self, pos):
-        if not self.validator(pos+1):
+        if not self.validator(pos+1, type="del"):
             return
         ptr1 = self.head
         ptr2 = None
@@ -166,7 +170,7 @@ if __name__ == '__main__':
 
     # delete nodes at with val
     print("*" * 20)
-    pos_list = [0, 1, 2, 14]
+    pos_list = [0, 1, 2, 2]
     for pos in pos_list:
         print(f"Deleting node at {pos}th pos...")
         add_remove_obj.delete_nth_node(pos)
@@ -190,15 +194,15 @@ if __name__ == '__main__':
 
     # Delete node at nth pos from the last V1
     print("*" * 20)
-    pos_list = [0, 3, 5]
+    pos_list = [0, 3, 5, 5]
     for pos in pos_list:
-        print(f"Removing node at {pos}th pos from last...")
+        print(f"Deleting node at {pos}th pos from last...")
         add_remove_obj.delete_node_at_nth_pos_from_last_v1(pos)
         add_remove_obj.print_list()
 
     # Delete node at nth pos from the last V1
     print("*" * 20)
-    pos_list = [0, 3, 1]
+    pos_list = [0, 3, 1, 2]
     for pos in pos_list:
         print(f"Removing node at {pos}th pos from last...")
         add_remove_obj.delete_node_at_nth_pos_from_last_v2(pos)
