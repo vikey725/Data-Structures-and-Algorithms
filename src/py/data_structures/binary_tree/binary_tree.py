@@ -1,3 +1,5 @@
+from data_structures.stack.stack_with_array import Stack
+
 class Node:
     def __init__(self, data):
         self.data = data
@@ -59,6 +61,52 @@ class BinaryTree:
             self.postorder(ptr.right, res)
             res.append(ptr.data)
 
+    def inorder_without_recursion(self, ptr, res):
+        stack = Stack()
+        while True:
+            if ptr is not None:
+                stack.push(ptr)
+                ptr = ptr.left
+            elif not stack.is_empty():
+                ptr = stack.pop()
+                res.append(ptr.data)
+                ptr = ptr.right
+            else:
+                break
+
+    def preorder_without_recursion(self, ptr, res):
+        stack = Stack()
+        while True:
+            if ptr is not None:
+                res.append(ptr.data)
+                stack.push(ptr)
+                ptr = ptr.left
+            elif not stack.is_empty():
+                ptr = stack.pop()
+                ptr = ptr.right
+            else:
+                break
+
+    def postorder_without_recursion(self, ptr, res):
+        stack = Stack()
+        while True:
+            while(ptr):
+                stack.push(ptr)
+                stack.push(ptr)
+                ptr = ptr.left
+
+            if stack.is_empty():
+                return
+            ptr = stack.pop()
+            if stack.size() > 0 and stack.top() == ptr:
+                ptr = ptr.right
+            else:
+                res.append(ptr.data)
+                ptr = None
+
+
+
+
 
 if __name__ == '__main__':
 
@@ -73,12 +121,27 @@ if __name__ == '__main__':
     bt.inorder(bt.root, inorder_list)
     print(inorder_list)
 
+    print("Inorder without recursion: ")
+    inorder_list = []
+    bt.inorder_without_recursion(bt.root, inorder_list)
+    print(inorder_list)
+
     print("Preorder: ")
     preorder_list = []
     bt.preorder(bt.root, preorder_list)
     print(preorder_list)
 
+    print("Preorder without recursion: ")
+    preorder_list = []
+    bt.preorder_without_recursion(bt.root, preorder_list)
+    print(preorder_list)
+
     print("Postorder: ")
     postorder_list = []
     bt.postorder(bt.root, postorder_list)
+    print(postorder_list)
+
+    print("Postorder without recursion: ")
+    postorder_list = []
+    bt.postorder_without_recursion(bt.root, postorder_list)
     print(postorder_list)
