@@ -104,6 +104,27 @@ class BinaryTree:
                 res.append(ptr.data)
                 ptr = None
 
+    def postorder_without_recursion_v2(self, ptr, res):
+        stack = Stack()
+        while True:
+            while(ptr):
+                if ptr.right:
+                    stack.push(ptr.right)
+                stack.push(ptr)
+                ptr = ptr.left
+
+            if stack.is_empty():
+                return
+            ptr = stack.pop()
+
+            if not stack.is_empty() and stack.top() == ptr.right:
+                stack.pop()
+                stack.push(ptr)
+                ptr = ptr.right
+            else:
+                res.append(ptr.data)
+                ptr = None
+
 
 
 
@@ -144,4 +165,9 @@ if __name__ == '__main__':
     print("Postorder without recursion: ")
     postorder_list = []
     bt.postorder_without_recursion(bt.root, postorder_list)
+    print(postorder_list)
+
+    print("Postorder without recursion V2: ")
+    postorder_list = []
+    bt.postorder_without_recursion_v2(bt.root, postorder_list)
     print(postorder_list)
