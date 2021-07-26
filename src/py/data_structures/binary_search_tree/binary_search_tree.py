@@ -87,8 +87,17 @@ class BinarySearchTree:
 
         return ptr
 
-    def find(self):
-        pass
+    def find(self, ptr, key):
+        if ptr is None:
+            raise ValueError(f"{key} not present in the tree")
+
+        if key == ptr.key:
+            return ptr.data
+
+        if key < ptr.key:
+            return self.find(ptr.left, key)
+        else:
+            return self.find(ptr.right, key)
 
     def inorder(self, ptr, res):
         if ptr:
@@ -112,6 +121,8 @@ if __name__ == '__main__':
     res = []
     bst.inorder(bst.root, res)
     print(res)
+
+    print(bst.find(bst.root, 8))
 
 
 
