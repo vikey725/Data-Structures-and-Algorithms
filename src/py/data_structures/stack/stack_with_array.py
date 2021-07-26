@@ -4,7 +4,7 @@ class Stack:
         self.container_length = 0
 
     def is_empty(self):
-        return self.size() == 0
+        return self.container_length == 0
 
     def push(self, data):
         if self.container_length < len(self.container):

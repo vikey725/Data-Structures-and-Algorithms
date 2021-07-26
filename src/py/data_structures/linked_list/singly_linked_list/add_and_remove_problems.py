@@ -1,5 +1,6 @@
 from singly_linked_list import Node, SinglyLinkedList
 
+
 class AddRemoveProblems(SinglyLinkedList):
     def __init__(self):
         super().__init__()
